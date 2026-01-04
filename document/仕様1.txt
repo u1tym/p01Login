@@ -8,11 +8,17 @@ images/PORTAL.jpg をサイトのトレードマークとする
 ログイン用ボタンを配置
 
 ビルドした後は、nginxにデプロイする。
+IPv4、IPv6でのアクセスを可能とする。
+
+サイトのベースURL、API用のベースURLをファイルで保持する。
+開発用のAPI用のベースURLは、localhost:8000
 /portal を基点として、/portal/login で表示されるようにする。
 
 comlibs下の以下を使用する。
 ssms.ts内のクラスVerify
 telegram-common.ts内のクラスTelegram
+
+バックエンドへのAPIは、Telegram.post()を使用する。
 
 ログインクリックで、バックエンドに「プレ要求」を送信して、「プレ応答」を受信する。
 
