@@ -13,15 +13,6 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets'
-  },
-  server: {
-    proxy: {
-      '/portal/auth': {
-        target: 'http://localhost:8000',
-        changeOrigin: true,
-        secure: false
-      }
-    }
   }
 })
 
