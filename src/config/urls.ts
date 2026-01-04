@@ -9,9 +9,9 @@ const isDevelopment = import.meta.env.DEV
 export const BASE_URL = '/portal'
 
 // API用のベースURL
-// 開発環境: localhost:8000
-// 本番環境: 環境変数またはデフォルト値を使用
+// 開発環境: 空文字列（Viteのプロキシを使用）
+// 本番環境: 環境変数またはデフォルト値（空文字列の場合は同じドメイン経由）
 export const API_BASE_URL = isDevelopment 
-  ? 'http://localhost:8000'
+  ? ''
   : (import.meta.env.VITE_API_BASE_URL || '')
 

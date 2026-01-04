@@ -97,7 +97,7 @@ const handleLogin = async () => {
     }
 
     await Telegram.post(
-      `${API_BASE_URL}/api/pre`,
+      `${API_BASE_URL}/portal/auth/api/prerequest`,
       preRequest,
       (reply: string) => {
         try {
@@ -124,7 +124,7 @@ const handleLogin = async () => {
           }
 
           Telegram.post(
-            `${API_BASE_URL}/api/unlock`,
+            `${API_BASE_URL}/portal/auth/api/unlock`,
             unlockRequest,
             (reply: string) => {
               try {
