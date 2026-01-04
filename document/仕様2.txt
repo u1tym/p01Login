@@ -1,0 +1,9 @@
+APIのURLを提示し忘れました。
+
+プレ要求
+/portal/auth/api/prerequest
+
+開錠要求
+/portal/auth/api/unlock
+
+としてください。
