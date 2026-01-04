@@ -1,1 +1,61 @@
 vue3 typescript
+ログイン画面の作成
+PCとスマホが対象
+
+サイトのタイトルは、Portal
+images/PORTAL.jpg をサイトのトレードマークとする
+ユーザ名、パスワードの入力欄
+ログイン用ボタンを配置
+
+ビルドした後は、nginxにデプロイする。
+/portal を基点として、/portal/login で表示されるようにする。
+
+comlibs下の以下を使用する。
+ssms.ts内のクラスVerify
+telegram-common.ts内のクラスTelegram
+
+ログインクリックで、バックエンドに「プレ要求」を送信して、「プレ応答」を受信する。
+
+#### プレ要求
+| No. | 項目名 | 型 | 説明 |
+|:---:|--- |--- | --- |
+| 1 | USER | string | 試行ユーザ名 |
+
+USERには、画面で入力されたユーザ名を設定する。
+
+#### プレ応答
+| No. | 項目名 | 型 | 説明 |
+|:---:|--- |--- | --- |
+| 1 | RESULT | boolean | 結果(True/False) |
+| 2 | DETAIL | string | 結果がFalseだった場合に詳細情報を設定 |
+| 3 | MAGIC_NUMBER | number | マジックナンバ |
+
+RESULTでFalseを受信した場合は、ダイアログで、DETAILの詳細情報を表示して、終了する。
+RESULTでTrueを受信した場合は、次に、「開錠要求」を送信して「開錠応答」を受信する。
+
+#### 開錠要求
+| No. | 項目名 | 型 | 説明 |
+|:---:|--- |--- | --- |
+| 1 | USER | string | 試行ユーザ名 |
+| 2 | MAGIC_NUMBER | number | マジックナンバ |
+| 3 | HASH_PASS | string | ハッシュ化パスワード |
+
+USERには、画面で入力されたユーザ名を設定する。
+MAGIC＿NUMBERには、プレ応答で受信したMAGIC_NUMBERを設定する。
+HASH_PASSには、クラスVerifyのcalc_hashに、magic=MAGIC_NUMBER、upass=画面で入力されたパスワードを指定して得られた値を設定する。
+
+#### 開錠応答
+| No. | 項目名 | 型 | 説明 |
+|:---:|--- |--- | --- |
+| 1 | RESULT | boolean | 結果(True/False) |
+| 2 | DETAIL | string | 結果がFalseだった場合に詳細情報を設定 |
+| 3 | SEQ_NUMBER | number | シーケンス管理ナンバ |
+
+RESULTでFalseを受信した場合は、ダイアログで、DETAILの詳細情報を表示して、終了する。
+RESULTでTrueを受信した場合は、クラスVerifyのupdateに、data.user=画面で入力されたユーザ名、data.sequence=SEQ_NUMBERを指定して呼び出す。
+
+続けて、仮処理として、画面に「OK」を表示する。
+
+
+
+
